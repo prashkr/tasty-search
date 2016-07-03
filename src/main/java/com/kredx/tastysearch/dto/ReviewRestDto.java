@@ -19,5 +19,5 @@ public class ReviewRestDto {
     private Review review;
 
     @JsonProperty("score")
-    private long searchScore;
+    private float searchScore;
 }

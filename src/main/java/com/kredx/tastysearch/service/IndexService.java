@@ -81,7 +81,7 @@ public class IndexService {
      */
     public static List<ReviewRestDto> search(Set<String> queryTokens, int resultSize) {
         int queryLength = queryTokens.size();
-        HashMap<Integer, Integer> reviewsCountMap = getReviewsCountMap(queryTokens);
+        HashMap<Integer, Float> reviewsCountMap = getReviewsCountMap(queryTokens);
         return getTopReviews(reviewsCountMap, queryLength, resultSize);
     }
 
@@ -90,8 +90,8 @@ public class IndexService {
      * @param queryTokens
      * @return
      */
-    private static HashMap<Integer, Integer> getReviewsCountMap(Set<String> queryTokens) {
-        HashMap<Integer, Integer> reviewsCountMap = new HashMap<>();
+    private static HashMap<Integer, Float> getReviewsCountMap(Set<String> queryTokens) {
+        HashMap<Integer, Float> reviewsCountMap = new HashMap<>();
 
         for (String queryToken : queryTokens) {
 
@@ -100,10 +100,10 @@ public class IndexService {
 
                 for (Integer reviewIndex : reviews) {
                     if (reviewsCountMap.containsKey(reviewIndex)) {
-                        Integer reviewMatchCount = reviewsCountMap.get(reviewIndex);
-                        reviewsCountMap.put(reviewIndex, reviewMatchCount+1);
+                        Float reviewMatchCount = reviewsCountMap.get(reviewIndex);
+                        reviewsCountMap.put(reviewIndex, reviewMatchCount + 1.f);
                     } else {
-                        reviewsCountMap.put(reviewIndex, 1);
+                        reviewsCountMap.put(reviewIndex, 1.f);
                     }
                 }
             }
@@ -123,7 +123,7 @@ public class IndexService {
      * @param resultSize
      * @return
      */
-    private static List<ReviewRestDto> getTopReviews(HashMap<Integer, Integer> reviewsCountMap, int queryLength, int resultSize) {
+    private static List<ReviewRestDto> getTopReviews(HashMap<Integer, Float> reviewsCountMap, int queryLength, int resultSize) {
         List<ReviewRestDto> reviewRestDtoList = new ArrayList<>();
 
         // Normalizing by query length
@@ -136,7 +136,7 @@ public class IndexService {
         for (int i = 0; i < Math.min(resultSize, sortedReviewList.size()); i++) {
             Pair pair = sortedReviewList.get(i);
             int reviewIndex = pair.getReviewIndex();
-            int searchScore = pair.getSearchScore();
+            float searchScore = pair.getSearchScore();
 
             ReviewRestDto reviewRestDto = new ReviewRestDto(ReviewCollection.get(reviewIndex), searchScore);
             reviewRestDtoList.add(reviewRestDto);
@@ -150,11 +150,11 @@ public class IndexService {
      * @param reviewsCountMap
      * @return
      */
-    private static List<Pair> getReviewsSortedByScore(HashMap<Integer, Integer> reviewsCountMap) {
+    private static List<Pair> getReviewsSortedByScore(HashMap<Integer, Float> reviewsCountMap) {
         List<Pair> reviewList = new ArrayList<>();
 
-        reviewsCountMap.forEach((reviewIndex, matchCount) -> {
-            Pair p = new Pair(reviewIndex, matchCount);
+        reviewsCountMap.forEach((reviewIndex, score) -> {
+            Pair p = new Pair(reviewIndex, score);
             reviewList.add(p);
         });
 
@@ -178,6 +178,6 @@ public class IndexService {
     @Getter
     public static class Pair {
         int reviewIndex;
-        int searchScore;
+        float searchScore;
     }
 }
