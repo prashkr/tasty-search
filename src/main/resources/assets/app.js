@@ -15,10 +15,8 @@ app.controller('controller', function($scope, $http) {
 
     $scope.inputValue = "";
     $scope.fetchReviews = function() {
-        var tokens = $scope.inputValue.split(" ");
-
         //call api
-        $http.post('/tastysearch/api/v1/search', tokens)
+        $http.post('/tastysearch/api/v1/search', $scope.inputValue)
             .success(function (data, status, headers, config) {
                 $scope.reviews = data;
             })

@@ -3,6 +3,7 @@ package com.kredx.tastysearch;
 import com.kredx.tastysearch.service.IndexService;
 import com.kredx.tastysearch.resource.TastyResource;
 import com.kredx.tastysearch.parser.FileParser;
+import com.kredx.tastysearch.service.LoadService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -28,5 +29,6 @@ public class TastyApplication extends Application<TastyConfiguration> {
 
         new FileParser(configuration).parse();
         new IndexService().generateIndex();
+        new LoadService().loadWords();
     }
 }

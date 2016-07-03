@@ -21,8 +21,11 @@ public class TastyConfiguration extends Configuration {
     private int resultSize;
 
     @JsonIgnoreProperties
-    private int querySize;
+    private int testSetSize;
 
     @JsonIgnoreProperties
-    private int maxQueryTokens;
+    private int maxTestTokens;
+
+    @JsonIgnoreProperties
+    private String testSetFileName;
 }

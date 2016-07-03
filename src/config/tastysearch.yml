@@ -17,7 +17,10 @@ resultSize: 20
 fileName: "foods.txt"
 
 # number of queries to generate for load test
-querySize: 100000
+testSetSize: 100000
 
 # max number of tokens in the generated query (for load test)
-maxQueryTokens: 10
+maxTestTokens: 10
+
+# name of the test set file
+testSetFileName: "testset.csv"

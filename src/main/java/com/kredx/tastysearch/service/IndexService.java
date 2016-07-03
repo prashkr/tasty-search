@@ -1,5 +1,6 @@
 package com.kredx.tastysearch.service;
 
+import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.dto.ReviewRestDto;
 import com.kredx.tastysearch.review.Review;
 import com.kredx.tastysearch.review.ReviewCollection;

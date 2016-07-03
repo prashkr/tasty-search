@@ -3,12 +3,12 @@ package com.kredx.tastysearch.parser;
 import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.review.Review;
 import com.kredx.tastysearch.review.ReviewCollection;
+import com.kredx.tastysearch.service.RandomNumberService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 /**
  * Created by prashkr on 7/2/16.
@@ -17,7 +17,6 @@ public class FileParser {
     private final String EMPTY_STRING = "";
     private final String NEW_LINE = "\n";
     private final int SAMPLE_SIZE;
-    private final Random rand = new Random();
     private final String fileName;
 
     public FileParser(TastyConfiguration configuration) {
@@ -100,7 +99,7 @@ public class FileParser {
             Review parsedReview = ReviewParser.parse(reviewString);
             ReviewCollection.add(parsedReview);
         } else {
-            int index = generateRandomIndex(0, countReviewsParsed);
+            int index = RandomNumberService.generateRandomNumberBetween(0, countReviewsParsed);
             if (index < SAMPLE_SIZE) {
                 Review parsedReview = ReviewParser.parse(reviewString);
                 ReviewCollection.update(index, parsedReview);
@@ -108,16 +107,5 @@ public class FileParser {
                 //ignore this review
             }
         }
-    }
-
-    /**
-     * Generates random integer between [min, max]
-     *
-     * @param min lower bound
-     * @param max upper bound
-     * @return
-     */
-    private int generateRandomIndex(int min, int max) {
-        return min + rand.nextInt(1 + (max - min));
     }
 }
