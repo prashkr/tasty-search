@@ -79,11 +79,6 @@ public class FileParser {
             } else {
                 reviewString += line + NEW_LINE;
             }
-
-            // Todo: remove the below code.
-//            if (countReviewsParsed >= 100) {
-//                break;
-//            }
         }
     }
 

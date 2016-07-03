@@ -19,4 +19,10 @@ public class TastySearchConfiguration extends Configuration {
 
     @JsonIgnoreProperties
     private int resultSize;
+
+    @JsonIgnoreProperties
+    private int querySize;
+
+    @JsonIgnoreProperties
+    private int maxQueryTokens;
 }

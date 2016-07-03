@@ -18,6 +18,13 @@ public class IndexService {
     public static Map<String, List<Integer>> index = new HashMap<>();
 
     /**
+     * List of all the words in all the reviews. No duplicates here.
+     * Todo: Remove words like 'a', 'of', 'the', 'if', etc.
+     *
+     */
+    public static List<String> words = new ArrayList<>();
+
+    /**
      * Adds review index to search_index
      *  @param word
      * @param reviewIndex
@@ -47,11 +54,12 @@ public class IndexService {
     }
 
     /**
-     * Populates index from review collection
+     * Populates index from review collection.
+     * Gets tokens from each review and adds it to the index.
      */
     public void generateIndex() {
         List<Review> sampledReviews = ReviewCollection.sampledReviews;
-
+        
         for (int i = 0; i < sampledReviews.size(); i++) {
             Review review = sampledReviews.get(i);
             String reviewText = review.getFilteredText();

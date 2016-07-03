@@ -5,17 +5,19 @@ server:
   adminContextPath: /admin
   connector:
     type: http
-    port: 80
+    port: 9001
 
-#metrics:
-#  reporters:
-#    - type: <type>
-#      durationUnit: milliseconds
-#      rateUnit: seconds
-#      excludes: (none)
-#      includes: (all)
-#      frequency: 1 second
-
+# number of samples to collect out of all the reviews
 sampleSize: 100000
+
+# number of results to emit
 resultSize: 20
+
+# name of the data file
 fileName: "foods.txt"
+
+# number of queries to generate for load test
+querySize: 100000
+
+# max number of tokens in the generated query (for load test)
+maxQueryTokens: 10
