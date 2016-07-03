@@ -4,6 +4,7 @@ app.controller('controller', function($scope, $http) {
     $scope.reviews = [];
 
     $("#searchbox").bind("keypress", {}, keypressInBox);
+    $("#searchbox").focus();
 
     function keypressInBox(e) {
         var code = (e.keyCode ? e.keyCode : e.which);

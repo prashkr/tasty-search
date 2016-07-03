@@ -17,11 +17,11 @@
     <div class="container">
         <div class="jumbotron">
             <h1>Tasty Search</h1>
-            <p>A search engine to search gourmet food reviews data</p>
+            <p>A search engine for searching gourmet food reviews data</p>
             <div class="row">
                 <div class="col-md-12">
                     <div class="input-group">
-                        <input id="searchbox" ng-model="inputValue" type="text" class="form-control" placeholder="Search for tokens" />
+                        <input id="searchbox" ng-model="inputValue" type="text" class="form-control" placeholder="Search for tokens e.g grumpy cat" />
                         <div class="input-group-btn">
                             <button ng-click="fetchReviews()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search submit-button" aria-hidden="true"></span></button>
                         </div>
@@ -29,9 +29,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="table-responsive">
-            <table ng-show="reviews.length > 0" class="table table-hover">
+        <div ng-show="reviews.length > 0" class="table-responsive">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Product Id</th>
@@ -63,6 +62,9 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div ng-show="reviews.length == 0" class="center-block">
+
         </div>
     </div>
 
