@@ -54,7 +54,7 @@ public class IndexService {
 
         for (int i = 0; i < sampledReviews.size(); i++) {
             Review review = sampledReviews.get(i);
-            String reviewText = review.getText();
+            String reviewText = review.getFilteredText();
 
             StringTokenizer st = new StringTokenizer(reviewText);
 

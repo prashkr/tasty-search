@@ -65,7 +65,8 @@ public class ReviewParser {
 
         } else if (key.contains("text")) {
             String filteredText = FilterService.filter(value);
-            review.setText(filteredText);
+            review.setFilteredText(filteredText);
+            review.setOriginalText(value);
         }
     }
 }

@@ -21,7 +21,8 @@ public class Review {
     private float score;
     private long time;
     private String summary;
-    private String text;
+    private String filteredText;
+    private String originalText;
 
     @Override
     public boolean equals(Object o) {
@@ -37,7 +38,7 @@ public class Review {
         if (profileName != null ? !profileName.equals(review.profileName) : review.profileName != null) return false;
         if (helpfulness != null ? !helpfulness.equals(review.helpfulness) : review.helpfulness != null) return false;
         if (summary != null ? !summary.equals(review.summary) : review.summary != null) return false;
-        return text.equals(review.text);
+        return filteredText.equals(review.filteredText);
 
     }
 
@@ -50,7 +51,7 @@ public class Review {
         result = 31 * result + (score != +0.0f ? Float.floatToIntBits(score) : 0);
         result = 31 * result + (int) (time ^ (time >>> 32));
         result = 31 * result + (summary != null ? summary.hashCode() : 0);
-        result = 31 * result + text.hashCode();
+        result = 31 * result + filteredText.hashCode();
         return result;
     }
 }

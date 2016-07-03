@@ -26,7 +26,7 @@ public class TastySearchApplication extends Application<TastySearchConfiguration
                     Environment environment) throws ClassNotFoundException {
         environment.jersey().register(new SearchResource(configuration));
 
-//        new FileParser(configuration).parse();
-//        new IndexService().generateIndex();
+        new FileParser(configuration).parse();
+        new IndexService().generateIndex();
     }
 }

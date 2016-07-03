@@ -2,9 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Tasty Search</title>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- app js stuff -->
+    <script src="app.js"></script>
 </head>
+
 <body>
-    <p>Hello Dropwizard</p>
+    <div ng-app="app">
+        <div ng-controller="controller">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input id="searchbox" ng-model="inputValue" type="text" class="form-control" placeholder="Search for tokens" />
+                            <div class="input-group-btn">
+                                <button ng-click="fetchReviews()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search submit-button" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table ng-show="reviews.length > 0" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Product Id</th>
+                        <th>User Id</th>
+                        <th>Profile Name</th>
+                        <th>Helpfulness</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                        <th>Summary</th>
+                        <th>Text</th>
+                        <th>Search Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="review in reviews">
+                        <td>{{review.review.productId}}</td>
+                        <td>{{review.review.userId}}</td>
+                        <td>{{review.review.profileName}}</td>
+                        <td>{{review.review.helpfulness}}</td>
+                        <td>{{review.review.score}}</td>
+                        <td>{{review.review.time}}</td>
+                        <td>{{review.review.summary}}</td>
+                        <td>
+                            <div style="max-height: 150px; overflow:auto;">
+                                {{review.review.originalText}}
+                            </div>
+                        </td>
+                        <td>{{review.score}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
