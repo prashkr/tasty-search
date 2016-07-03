@@ -12,57 +12,59 @@
     <script src="app.js"></script>
 </head>
 
-<body>
-    <div ng-app="app">
-        <div ng-controller="controller">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <input id="searchbox" ng-model="inputValue" type="text" class="form-control" placeholder="Search for tokens" />
-                            <div class="input-group-btn">
-                                <button ng-click="fetchReviews()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search submit-button" aria-hidden="true"></span></button>
-                            </div>
+<body ng-app="app" ng-controller="controller">
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Tasty Search</h1>
+            <p>A search engine to search gourmet food reviews data</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input id="searchbox" ng-model="inputValue" type="text" class="form-control" placeholder="Search for tokens" />
+                        <div class="input-group-btn">
+                            <button ng-click="fetchReviews()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search submit-button" aria-hidden="true"></span></button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="table-responsive">
-                <table ng-show="reviews.length > 0" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Product Id</th>
-                        <th>User Id</th>
-                        <th>Profile Name</th>
-                        <th>Helpfulness</th>
-                        <th>Score</th>
-                        <th>Time</th>
-                        <th>Summary</th>
-                        <th>Text</th>
-                        <th>Search Score</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="review in reviews">
-                        <td>{{review.review.productId}}</td>
-                        <td>{{review.review.userId}}</td>
-                        <td>{{review.review.profileName}}</td>
-                        <td>{{review.review.helpfulness}}</td>
-                        <td>{{review.review.score}}</td>
-                        <td>{{review.review.time}}</td>
-                        <td>{{review.review.summary}}</td>
-                        <td>
-                            <div style="max-height: 150px; overflow:auto;">
-                                {{review.review.originalText}}
-                            </div>
-                        </td>
-                        <td>{{review.score}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive">
+            <table ng-show="reviews.length > 0" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Product Id</th>
+                    <th>User Id</th>
+                    <th>Profile Name</th>
+                    <th>Helpfulness</th>
+                    <th>Score</th>
+                    <th>Time</th>
+                    <th>Summary</th>
+                    <th>Text</th>
+                    <th>Search Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="review in reviews">
+                    <td>{{review.review.productId}}</td>
+                    <td>{{review.review.userId}}</td>
+                    <td>{{review.review.profileName}}</td>
+                    <td>{{review.review.helpfulness}}</td>
+                    <td>{{review.review.score}}</td>
+                    <td>{{review.review.time}}</td>
+                    <td>{{review.review.summary}}</td>
+                    <td>
+                        <div style="max-height: 150px; overflow:auto;">
+                            {{review.review.originalText}}
+                        </div>
+                    </td>
+                    <td>{{review.score}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
 </body>
 </html>
