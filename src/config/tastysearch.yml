@@ -1,10 +1,11 @@
 server:
   type: simple
   rootPath: /api/
+  applicationContextPath: /tastysearch
   adminContextPath: /admin
   connector:
     type: http
-    port: 9001
+    port: 80
 
 #metrics:
 #  reporters:

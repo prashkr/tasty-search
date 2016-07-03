@@ -18,7 +18,7 @@ app.controller('controller', function($scope, $http) {
         var tokens = $scope.inputValue.split(" ");
 
         //call api
-        $http.post('/application/api/v1/search', tokens)
+        $http.post('/tastysearch/api/v1/search', tokens)
             .success(function (data, status, headers, config) {
                 $scope.reviews = data;
             })
