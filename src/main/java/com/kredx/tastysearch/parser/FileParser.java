@@ -1,6 +1,6 @@
 package com.kredx.tastysearch.parser;
 
-import com.kredx.tastysearch.TastySearchConfiguration;
+import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.review.Review;
 import com.kredx.tastysearch.review.ReviewCollection;
 
@@ -20,7 +20,7 @@ public class FileParser {
     private final Random rand = new Random();
     private final String fileName;
 
-    public FileParser(TastySearchConfiguration configuration) {
+    public FileParser(TastyConfiguration configuration) {
         // TODO: fill data from configuration
         fileName = configuration.getFileName();
         SAMPLE_SIZE = configuration.getSampleSize();

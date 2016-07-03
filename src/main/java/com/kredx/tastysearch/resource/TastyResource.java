@@ -1,11 +1,10 @@
-package com.kredx.tastysearch.resources;
+package com.kredx.tastysearch.resource;
 
-import com.kredx.tastysearch.TastySearchConfiguration;
+import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.dto.ReviewRestDto;
-import com.kredx.tastysearch.review.Review;
-import com.kredx.tastysearch.review.ReviewCollection;
 import com.kredx.tastysearch.service.FilterService;
 import com.kredx.tastysearch.service.IndexService;
+import com.kredx.tastysearch.service.LoadService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,24 +18,17 @@ import java.util.Set;
  * Created by prashkr on 7/3/16.
  */
 @Path("v1")
-public class SearchResource {
+public class TastyResource {
 
-    private final TastySearchConfiguration configuration;
+    private final TastyConfiguration configuration;
 
-    public SearchResource(TastySearchConfiguration tastySearchConfiguration) {
-        configuration = tastySearchConfiguration;
+    public TastyResource(TastyConfiguration tastyConfiguration) {
+        configuration = tastyConfiguration;
     }
 
     @GET
-    public String ping() {
-        return "pong";
-    }
-
-    @Path("reviews")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Review> showReviews() {
-        return ReviewCollection.sampledReviews.subList(0, 10);
+    public String getTaste() {
+        return "Suuweeet!!";
     }
 
     @Path("search")
@@ -45,5 +37,12 @@ public class SearchResource {
     public List<ReviewRestDto> searchReviews(List<String> queryTokens) {
         Set<String> filteredQuerySet = FilterService.filter(queryTokens);
         return IndexService.search(filteredQuerySet, configuration.getResultSize());
+    }
+
+    @Path("generate-query-data")
+    @GET
+    public String generateQueryData() {
+        LoadService.generateQueryData(configuration.getQuerySize(), configuration.getMaxQueryTokens());
+        return "Data generated";
     }
 }

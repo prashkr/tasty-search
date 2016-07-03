@@ -1,7 +1,7 @@
 package com.kredx.tastysearch;
 
 import com.kredx.tastysearch.service.IndexService;
-import com.kredx.tastysearch.resources.SearchResource;
+import com.kredx.tastysearch.resource.TastyResource;
 import com.kredx.tastysearch.parser.FileParser;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -11,20 +11,20 @@ import io.dropwizard.setup.Environment;
 /**
  * Created by prashkr on 7/3/16.
  */
-public class TastySearchApplication extends Application<TastySearchConfiguration> {
+public class TastyApplication extends Application<TastyConfiguration> {
     public static void main(String[] args) throws Exception {
-        new TastySearchApplication().run(args);
+        new TastyApplication().run(args);
     }
 
     @Override
-    public void initialize(Bootstrap<TastySearchConfiguration> bootstrap) {
+    public void initialize(Bootstrap<TastyConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
     }
 
     @Override
-    public void run(TastySearchConfiguration configuration,
+    public void run(TastyConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-        environment.jersey().register(new SearchResource(configuration));
+        environment.jersey().register(new TastyResource(configuration));
 
         new FileParser(configuration).parse();
         new IndexService().generateIndex();

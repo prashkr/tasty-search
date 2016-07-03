@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class TastySearchConfiguration extends Configuration {
+public class TastyConfiguration extends Configuration {
     @JsonIgnoreProperties
     private String fileName;
 

@@ -9,7 +9,7 @@ targetCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 // The main class of the application
-mainClassName = 'com.kredx.tastysearch.TastySearchApplication'
+mainClassName = 'com.kredx.tastysearch.TastyApplication'
 
 // Set our project variables
 project.ext {
