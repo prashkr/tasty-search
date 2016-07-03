@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+// Use Java 7 by default
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+// UTF-8 should be standard by now. So use it!
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// The main class of the application
+mainClassName = 'com.kredx.tastysearch.TastySearchApplication'
+
+// Set our project variables
+project.ext {
+    dropwizardVersion = '0.9.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+       'io.dropwizard:dropwizard-core:' + dropwizardVersion,
+       'org.projectlombok:lombok:1.16.8'
+    )
+}
+
+// Configure the run task to start the Dropwizard service
+run {
+    args 'server', './src/config/tastysearch.yml'
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}

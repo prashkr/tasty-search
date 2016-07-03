@@ -1,0 +1,16 @@
+server:
+  type: simple
+  applicationContextPath: /rest
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 9001
+
+#metrics:
+#  reporters:
+#    - type: <type>
+#      durationUnit: milliseconds
+#      rateUnit: seconds
+#      excludes: (none)
+#      includes: (all)
+#      frequency: 1 second

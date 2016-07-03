@@ -1,0 +1,24 @@
+*.iml
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# specific folder
+build/
+classes/
+.gradle/
+out/
+.idea/
+
+#temporary
+*~
+*.swp
+
+#data files
+*.csv
+*.txt
+
+#log file
+*.log
