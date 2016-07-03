@@ -13,8 +13,6 @@ import io.dropwizard.setup.Environment;
 public class TastySearchApplication extends Application<TastySearchConfiguration> {
     public static void main(String[] args) throws Exception {
         new TastySearchApplication().run(args);
-        new FileParser().parse();
-        new IndexService().generateIndex();
     }
 
     @Override
@@ -25,6 +23,9 @@ public class TastySearchApplication extends Application<TastySearchConfiguration
     @Override
     public void run(TastySearchConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-        environment.jersey().register(new SearchResource());
+        environment.jersey().register(new SearchResource(configuration));
+
+        new FileParser(configuration).parse();
+        new IndexService().generateIndex();
     }
 }

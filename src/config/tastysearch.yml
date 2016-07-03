@@ -14,3 +14,7 @@ server:
 #      excludes: (none)
 #      includes: (all)
 #      frequency: 1 second
+
+sampleSize: 100000
+resultSize: 20
+fileName: "foods.txt"

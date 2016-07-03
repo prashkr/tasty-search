@@ -26,4 +26,17 @@ public class ReviewCollection {
     public static void update(int index, Review review) {
         sampledReviews.set(index, review);
     }
+
+    /**
+     * Get review at the given index
+     *
+     * @param index
+     */
+    public static Review get(int index) {
+        if (index >= sampledReviews.size()) {
+            return new Review();
+        }
+
+        return sampledReviews.get(index);
+    }
 }

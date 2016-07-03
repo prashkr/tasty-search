@@ -1,6 +1,6 @@
 package com.kredx.tastysearch.parser;
 
-import com.kredx.tastysearch.filter.TextFilter;
+import com.kredx.tastysearch.service.FilterService;
 import com.kredx.tastysearch.review.Review;
 import lombok.AllArgsConstructor;
 
@@ -64,7 +64,7 @@ public class ReviewParser {
             review.setSummary(value);
 
         } else if (key.contains("text")) {
-            String filteredText = TextFilter.filter(value);
+            String filteredText = FilterService.filter(value);
             review.setText(filteredText);
         }
     }

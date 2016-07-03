@@ -1,9 +1,13 @@
-package com.kredx.tastysearch.filter;
+package com.kredx.tastysearch.service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by prashkr on 7/3/16.
  */
-public class TextFilter {
+public class FilterService {
 
     public static String input;
 
@@ -25,6 +29,24 @@ public class TextFilter {
         // Todo: pass through stemmer
 
         return input;
+    }
+
+    /**
+     * Filters a list of string element by element. Retains only 1 copy of
+     * duplicate strings.
+     *
+     * @param inputList List of strings to be filtered
+     * @return List of filtered strings
+     */
+    public static Set<String> filter(List<String> inputList) {
+        Set<String> filteredList = new HashSet<>();
+
+        for (String input : inputList) {
+            String filteredInput = filter(input);
+            filteredList.add(filteredInput);
+        }
+
+        return filteredList;
     }
 
     /**
