@@ -23,6 +23,7 @@ repositories {
 dependencies {
     compile (
        'io.dropwizard:dropwizard-core:' + dropwizardVersion,
+       'io.dropwizard:dropwizard-assets:' + dropwizardVersion,
        'org.projectlombok:lombok:1.16.8'
     )
 }

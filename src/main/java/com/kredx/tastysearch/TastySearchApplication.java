@@ -4,6 +4,7 @@ import com.kredx.tastysearch.service.IndexService;
 import com.kredx.tastysearch.resources.SearchResource;
 import com.kredx.tastysearch.parser.FileParser;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -18,6 +19,7 @@ public class TastySearchApplication extends Application<TastySearchConfiguration
     @Override
     public void initialize(Bootstrap<TastySearchConfiguration> bootstrap) {
         // nothing to initialize
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     }
 
     @Override
