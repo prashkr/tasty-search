@@ -18,8 +18,7 @@ public class TastySearchApplication extends Application<TastySearchConfiguration
 
     @Override
     public void initialize(Bootstrap<TastySearchConfiguration> bootstrap) {
-        // nothing to initialize
-        bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
     }
 
     @Override
@@ -27,7 +26,7 @@ public class TastySearchApplication extends Application<TastySearchConfiguration
                     Environment environment) throws ClassNotFoundException {
         environment.jersey().register(new SearchResource(configuration));
 
-        new FileParser(configuration).parse();
-        new IndexService().generateIndex();
+//        new FileParser(configuration).parse();
+//        new IndexService().generateIndex();
     }
 }
