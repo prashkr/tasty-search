@@ -37,9 +37,12 @@ public class TastyResource {
     }
 
     /**
+     * Get results using index. Steps:
+     * 1. Splits input into list of unique tokens
+     * 2. Filters each token
+     * 3. Searches using index and returns top matching reviews
      *
-     *
-     * @param query
+     * @param query e.g "good bad ugly"
      * @return
      */
     @Path("search-index")
@@ -48,11 +51,15 @@ public class TastyResource {
     public List<ReviewRestDto> searchReviewsUsingIndex(String query) {
         String[] tokens = query.trim().split(" ");
         Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
+
         return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize(), index);
     }
 
     /**
-     *
+     * Get results WITHOUT using index i.e plain brute force approach. Steps:
+     * 1. Splits input into list of unique tokens
+     * 2. Filters each token
+     * 3. Searches WITHOUT using index and returns top matching reviews
      *
      * @param query
      * @return
@@ -63,6 +70,7 @@ public class TastyResource {
     public List<ReviewRestDto> searchReviewsWithoutIndex(String query) {
         String[] tokens = query.trim().split(" ");
         Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
+
         return SearchService.searchWithoutIndex(filteredQuerySet, configuration.getResultSize());
     }
 
