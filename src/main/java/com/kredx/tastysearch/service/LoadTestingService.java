@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Created by prashkr on 7/4/16.
  */
-public class LoadService {
+public class LoadTestingService {
     /**
      * List of all the words in all the reviews. No duplicates here.
      * Todo: Remove stop words such as 'a', 'of', 'the', 'if', etc.

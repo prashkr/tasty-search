@@ -4,7 +4,7 @@ import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.dto.ReviewRestDto;
 import com.kredx.tastysearch.index.Index;
 import com.kredx.tastysearch.service.FilterService;
-import com.kredx.tastysearch.service.LoadService;
+import com.kredx.tastysearch.service.LoadTestingService;
 import com.kredx.tastysearch.service.SearchService;
 
 import javax.ws.rs.GET;
@@ -75,7 +75,7 @@ public class TastyResource {
     @GET
     public String generateQueryData() {
         try {
-            LoadService.generateTestSet(configuration.getTestSetFileName(),
+            LoadTestingService.generateTestSet(configuration.getTestSetFileName(),
                     configuration.getTestSetSize(), configuration.getMaxTestTokens());
             return "Data generated";
         } catch (IOException e) {

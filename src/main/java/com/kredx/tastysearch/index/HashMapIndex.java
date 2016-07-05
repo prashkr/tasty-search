@@ -18,7 +18,8 @@ import java.util.*;
 @Setter
 public class HashMapIndex implements Index {
     /**
-     * This is our main index. It contains mapping from word to list of reviews containing that word.
+     * This is our hash map index.
+     * It contains mapping from word to list of reviews containing that word.
      */
     public Map<String, List<Integer>> index = new HashMap<>();
 

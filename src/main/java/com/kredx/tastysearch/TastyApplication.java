@@ -5,7 +5,7 @@ import com.kredx.tastysearch.index.Index;
 import com.kredx.tastysearch.index.RadixTreeIndex;
 import com.kredx.tastysearch.parser.FileParser;
 import com.kredx.tastysearch.resource.TastyResource;
-import com.kredx.tastysearch.service.LoadService;
+import com.kredx.tastysearch.service.LoadTestingService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -40,7 +40,7 @@ public class TastyApplication extends Application<TastyConfiguration> {
         // build index depending on index type
         index.buildIndex();
         // load all words into memory for generating test set later
-        new LoadService().loadWords();
+        new LoadTestingService().loadWords();
 
         environment.jersey().register(new TastyResource(configuration, index));
     }
