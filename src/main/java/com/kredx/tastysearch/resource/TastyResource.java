@@ -5,6 +5,7 @@ import com.kredx.tastysearch.dto.ReviewRestDto;
 import com.kredx.tastysearch.service.FilterService;
 import com.kredx.tastysearch.service.IndexService;
 import com.kredx.tastysearch.service.LoadService;
+import com.kredx.tastysearch.service.SearchService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,15 +34,41 @@ public class TastyResource {
         return "Suuweeet!!";
     }
 
+    /**
+     *
+     *
+     * @param query
+     * @return
+     */
+    @Path("search-index")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ReviewRestDto> searchReviewsUsingIndex(String query) {
+        String[] tokens = query.trim().split(" ");
+        Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
+        return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize());
+    }
+
+    /**
+     *
+     *
+     * @param query
+     * @return
+     */
     @Path("search")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ReviewRestDto> searchReviews(String query) {
+    public List<ReviewRestDto> searchReviewsWithoutIndex(String query) {
         String[] tokens = query.trim().split(" ");
         Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
-        return IndexService.search(filteredQuerySet, configuration.getResultSize());
+        return SearchService.searchWithoutIndex(filteredQuerySet, configuration.getResultSize());
     }
 
+    /**
+     *
+     *
+     * @return
+     */
     @Path("generate-query-data")
     @GET
     public String generateQueryData() {
