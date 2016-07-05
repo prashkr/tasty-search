@@ -1,6 +1,7 @@
 package com.kredx.tastysearch.service;
 
 import com.kredx.tastysearch.dto.ReviewRestDto;
+import com.kredx.tastysearch.index.Index;
 import com.kredx.tastysearch.review.Review;
 import com.kredx.tastysearch.review.ReviewCollection;
 import lombok.AllArgsConstructor;
@@ -18,41 +19,68 @@ public class SearchService {
      *
      * @param queryTokens
      * @param resultSize
+     * @param index
      * @return
      */
-    public static List<ReviewRestDto> searchUsingIndex(Set<String> queryTokens, int resultSize) {
+    public static List<ReviewRestDto> searchUsingIndex(Set<String> queryTokens, int resultSize, Index index) {
         int queryLength = queryTokens.size();
-        HashMap<Integer, Float> reviewsScoreMap = getReviewsScoreMap(queryTokens, queryLength);
+        HashMap<Integer, Float> reviewsScoreMap = getReviewsScoreMap(queryTokens, queryLength, index);
         return getTopReviews(reviewsScoreMap, resultSize);
     }
+
+
+    /**
+     *
+     *
+     * @param filteredQuerySet
+     * @param resultSize
+     * @return
+     */
+    public static List<ReviewRestDto> searchWithoutIndex(Set<String> filteredQuerySet, int resultSize) {
+        Map<Integer, Float> reviewsScoreMap = new HashMap<>();
+        List<Review> sampledReviews = ReviewCollection.sampledReviews;
+
+        for (int i = 0; i < sampledReviews.size(); i++) {
+            Review sampledReview = sampledReviews.get(i);
+            String filteredText = sampledReview.getFilteredText();
+
+            float reviewScore = getReviewScore(filteredQuerySet, filteredText);
+            if (reviewScore != 0f) {
+                reviewsScoreMap.put(i, reviewScore);
+            }
+        }
+
+        return getTopReviews(reviewsScoreMap, resultSize);
+    }
+
+
 
     /**
      *
      * @param queryTokens
      * @param queryLength
+     * @param index
      * @return
      */
-    private static HashMap<Integer, Float> getReviewsScoreMap(Set<String> queryTokens, int queryLength) {
+    private static HashMap<Integer, Float> getReviewsScoreMap(Set<String> queryTokens, int queryLength, Index index) {
         HashMap<Integer, Float> reviewsCountMap = new HashMap<>();
 
         for (String queryToken : queryTokens) {
+            // fetching matched reviews from query token
+            List<Integer> reviews = index.searchIndex(queryToken);
 
-            if (IndexService.index.containsKey(queryToken)) {
-                List<Integer> reviews = IndexService.index.get(queryToken);
-
-                for (Integer reviewIndex : reviews) {
-                    if (reviewsCountMap.containsKey(reviewIndex)) {
-                        Float reviewMatchCount = reviewsCountMap.get(reviewIndex);
-                        reviewsCountMap.put(reviewIndex, reviewMatchCount + 1.f);
-                    } else {
-                        reviewsCountMap.put(reviewIndex, 1.f);
-                    }
+            for (Integer reviewIndex : reviews) {
+                if (reviewsCountMap.containsKey(reviewIndex)) {
+                    Float reviewMatchCount = reviewsCountMap.get(reviewIndex);
+                    reviewsCountMap.put(reviewIndex, reviewMatchCount + 1.f);
+                } else {
+                    reviewsCountMap.put(reviewIndex, 1.f);
                 }
             }
         }
+
         // Normalizing by query length
         reviewsCountMap.replaceAll((k, v) -> (v / queryLength));
-
         return reviewsCountMap;
     }
 
@@ -112,29 +140,6 @@ public class SearchService {
         });
 
         return reviewList;
-    }
-
-    /**
-     *
-     *
-     * @param filteredQuerySet
-     * @param resultSize
-     * @return
-     */
-    public static List<ReviewRestDto> searchWithoutIndex(Set<String> filteredQuerySet, int resultSize) {
-        Map<Integer, Float> reviewsScoreMap = new HashMap<>();
-        List<Review> sampledReviews = ReviewCollection.sampledReviews;
-
-        for (int i = 0; i < sampledReviews.size(); i++) {
-            Review sampledReview = sampledReviews.get(i);
-            String filteredText = sampledReview.getFilteredText();
-            float reviewScore = getReviewScore(filteredQuerySet, filteredText);
-            if (reviewScore != 0f) {
-                reviewsScoreMap.put(i, reviewScore);
-            }
-        }
-
-        return getTopReviews(reviewsScoreMap, resultSize);
     }
 
     /**

@@ -24,7 +24,8 @@ dependencies {
     compile (
        'io.dropwizard:dropwizard-core:' + dropwizardVersion,
        'io.dropwizard:dropwizard-assets:' + dropwizardVersion,
-       'org.projectlombok:lombok:1.16.8'
+       'org.projectlombok:lombok:1.16.8',
+       'com.googlecode.concurrent-trees:concurrent-trees:2.5.0'
     )
 }
 

@@ -2,8 +2,8 @@ package com.kredx.tastysearch.resource;
 
 import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.dto.ReviewRestDto;
+import com.kredx.tastysearch.index.Index;
 import com.kredx.tastysearch.service.FilterService;
-import com.kredx.tastysearch.service.IndexService;
 import com.kredx.tastysearch.service.LoadService;
 import com.kredx.tastysearch.service.SearchService;
 
@@ -24,9 +24,11 @@ import java.util.Set;
 public class TastyResource {
 
     private final TastyConfiguration configuration;
+    private final Index index;
 
-    public TastyResource(TastyConfiguration tastyConfiguration) {
-        configuration = tastyConfiguration;
+    public TastyResource(TastyConfiguration tastyConfiguration, Index index) {
+        this.configuration = tastyConfiguration;
+        this.index = index;
     }
 
     @GET
@@ -46,7 +48,7 @@ public class TastyResource {
     public List<ReviewRestDto> searchReviewsUsingIndex(String query) {
         String[] tokens = query.trim().split(" ");
         Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
-        return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize());
+        return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize(), index);
     }
 
     /**

@@ -17,7 +17,7 @@ public class FilterService {
      * 1. Removes all html tags.
      * 2. Removes all non alpha numeric characters.
      * 3. Converts all letters to lowercase.
-     * 4. TODO: Pass through stremmer
+     * 4. TODO: Pass through stemmer
      *
      * @param input The input string
      * @return Filtered string

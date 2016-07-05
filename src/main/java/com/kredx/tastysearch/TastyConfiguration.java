@@ -18,6 +18,9 @@ public class TastyConfiguration extends Configuration {
     private int sampleSize;
 
     @JsonIgnoreProperties
+    private int indexType;
+
+    @JsonIgnoreProperties
     private int resultSize;
 
     @JsonIgnoreProperties

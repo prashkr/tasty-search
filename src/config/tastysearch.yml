@@ -10,6 +10,9 @@ server:
 # number of samples to collect out of all the reviews
 sampleSize: 100000
 
+# type of index to use. 1 for Hash map index. 2 for Radix tree index
+indexType: 1
+
 # number of results to emit
 resultSize: 20
 

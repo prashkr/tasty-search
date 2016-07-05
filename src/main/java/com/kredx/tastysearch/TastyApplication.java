@@ -1,8 +1,10 @@
 package com.kredx.tastysearch;
 
-import com.kredx.tastysearch.service.IndexService;
-import com.kredx.tastysearch.resource.TastyResource;
+import com.kredx.tastysearch.index.HashMapIndex;
+import com.kredx.tastysearch.index.Index;
+import com.kredx.tastysearch.index.RadixTreeIndex;
 import com.kredx.tastysearch.parser.FileParser;
+import com.kredx.tastysearch.resource.TastyResource;
 import com.kredx.tastysearch.service.LoadService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -25,10 +27,21 @@ public class TastyApplication extends Application<TastyConfiguration> {
     @Override
     public void run(TastyConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-        environment.jersey().register(new TastyResource(configuration));
+        Index index = null;
+        if (configuration.getIndexType() == 1) {
+            index = new HashMapIndex();
+        } else if (configuration.getIndexType() == 2){
+            index = new RadixTreeIndex();
+        }
+        assert index != null;
 
+        // parse reviews file to generate samples
         new FileParser(configuration).parse();
-        new IndexService().generateIndex();
+        // build index depending on index type
+        index.buildIndex();
+        // load all words into memory for generating test set later
         new LoadService().loadWords();
+
+        environment.jersey().register(new TastyResource(configuration, index));
     }
 }
