@@ -41,7 +41,6 @@ public class TastyApplication extends Application<TastyConfiguration> {
         index.buildIndex();
         // load all words into memory for generating test set later
         new LoadTestingService().loadWords();
-
-        environment.jersey().register(new TastyResource(configuration, index));
+        environment.jersey().register(new TastyResource(configuration, index, environment.metrics()));
     }
 }

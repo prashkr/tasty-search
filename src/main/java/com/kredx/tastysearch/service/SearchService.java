@@ -1,5 +1,8 @@
 package com.kredx.tastysearch.service;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
+import com.codahale.metrics.annotation.Timed;
 import com.kredx.tastysearch.dto.ReviewRestDto;
 import com.kredx.tastysearch.index.Index;
 import com.kredx.tastysearch.review.Review;
@@ -8,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.*;
+
 
 /**
  * Created by prashkr on 7/5/16.
@@ -20,12 +24,18 @@ public class SearchService {
      * @param queryTokens
      * @param resultSize
      * @param index
+     * @param metricRegistry
      * @return
      */
-    public static List<ReviewRestDto> searchUsingIndex(Set<String> queryTokens, int resultSize, Index index) {
+    public static List<ReviewRestDto> searchUsingIndex(Set<String> queryTokens, int resultSize, Index index, MetricRegistry metricRegistry) {
         int queryLength = queryTokens.size();
         HashMap<Integer, Float> reviewsScoreMap = getReviewsScoreMap(queryTokens, queryLength, index);
-        return getTopReviews(reviewsScoreMap, resultSize);
+
+        Timer timer = metricRegistry.timer("getTopReviews.time");
+        Timer.Context context = timer.time();
+        List<ReviewRestDto> topReviews = getTopReviews(reviewsScoreMap, resultSize);
+        context.stop();
+        return topReviews;
     }
 
 
@@ -94,6 +104,7 @@ public class SearchService {
      * @param resultSize
      * @return
      */
+    @Timed(absolute = true, name = "GetTopReviewsTimer")
     private static List<ReviewRestDto> getTopReviews(Map<Integer, Float> reviewsScoreMap, int resultSize) {
         List<ReviewRestDto> reviewRestDtoList = new ArrayList<>();
 

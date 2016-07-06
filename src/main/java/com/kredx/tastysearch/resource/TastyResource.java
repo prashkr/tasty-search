@@ -1,5 +1,6 @@
 package com.kredx.tastysearch.resource;
 
+import com.codahale.metrics.MetricRegistry;
 import com.kredx.tastysearch.TastyConfiguration;
 import com.kredx.tastysearch.dto.ReviewRestDto;
 import com.kredx.tastysearch.index.Index;
@@ -25,10 +26,12 @@ public class TastyResource {
 
     private final TastyConfiguration configuration;
     private final Index index;
+    private final MetricRegistry metricRegistry;
 
-    public TastyResource(TastyConfiguration tastyConfiguration, Index index) {
+    public TastyResource(TastyConfiguration tastyConfiguration, Index index, MetricRegistry metrics) {
         this.configuration = tastyConfiguration;
         this.index = index;
+        this.metricRegistry = metrics;
     }
 
     @GET
@@ -52,7 +55,7 @@ public class TastyResource {
         String[] tokens = query.trim().split(" ");
         Set<String> filteredQuerySet = FilterService.filter(Arrays.asList(tokens));
 
-        return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize(), index);
+        return SearchService.searchUsingIndex(filteredQuerySet, configuration.getResultSize(), index, metricRegistry);
     }
 
     /**
