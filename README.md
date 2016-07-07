@@ -1,12 +1,13 @@
 # Tasty Search
 
 It is a search engine for searching gourmet food reviews. The data set for the reviews is taken from [Amazon Fine Foods reviews](http://snap.stanford.edu/data/web-FineFoods.html) which has 568,454 reviews given by 256,059 users.
+You can checkout the live demo [here](http://prashkr.com/tastysearch/).
 
 ### Running instructions
 
 Clone this repo:
 ```sh
-$ git clone repo-url
+$ git clone https://github.com/prashkr/tasty-search.git
 ```
 Before running the following command make sure you have the dataset file (Amazon reviews) in the resources folder.
 
