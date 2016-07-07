@@ -27,7 +27,7 @@ The configuration has the following fields which can be changed according to nee
 * **sampleSize** : number of samples to collect out of all the reviews
 * **indexType** : type of index to use. 1 for Hash map index. 2 for Radix tree index
 * **resultSize** : number of results to emit
-* **fileName** : name of the data file
+* **fileName** : name of the data set file
 *  **testSetSize** : number of queries to generate for load test
 *   **maxTestTokens** : max number of tokens in the generated query (for load test)
 *   **testSetFileName** : name of the test set file
