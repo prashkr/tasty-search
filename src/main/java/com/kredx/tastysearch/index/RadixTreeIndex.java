@@ -13,7 +13,8 @@ import java.util.*;
  */
 public class RadixTreeIndex implements Index{
     /**
-     * This is our radix tree or a compressed trie index.
+     * This is our radix tree or a compressed trie index. So the whole index is a trie.
+     * It is space efficient because of the fact that a lot of words will have a common prefix.
      */
     public RadixTree<List<Integer>> index = new ConcurrentRadixTree<>(new DefaultCharArrayNodeFactory());
 
