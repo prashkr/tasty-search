@@ -38,6 +38,7 @@ The configuration has the following fields which can be changed according to nee
 * [Concurrent-Trees](https://github.com/npgall/concurrent-trees)
 
 ### Load Test Results
+Entries in the table correspond to the tuple (Average Latency, Throughput in requests/sec). Ran the tests for 10 minutes each.
 |              **Structure \ Threads**             |  **1 Thread**  |  **10 Threads** |  **20 Threads**  |
 |:------------------------------------------------:|:--------------:|:---------------:|:----------------:|
 |                  **Radix Tree**                  | (2ms, 452/sec) | (9ms, 1064/sec) | (16ms, 1177/sec) |
