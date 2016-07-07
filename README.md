@@ -27,7 +27,7 @@ The configuration has the following fields which can be changed according to nee
 * **sampleSize** : number of samples to collect out of all the reviews
 * **indexType** : type of index to use. 1 for Hash map index. 2 for Radix tree index
 * **resultSize** : number of results to emit
-* **fileName** : name of the data set file
+* **fileName** : name of the data file
 *  **testSetSize** : number of queries to generate for load test
 *   **maxTestTokens** : max number of tokens in the generated query (for load test)
 *   **testSetFileName** : name of the test set file
@@ -36,6 +36,15 @@ The configuration has the following fields which can be changed according to nee
 * [Dropwizard](https://github.com/dropwizard/dropwizard)
 * [AngularJS](https://github.com/angular/angular.js)
 * [Concurrent-Trees](https://github.com/npgall/concurrent-trees)
+
+### Load Test Results
+|              **Structure \ Threads**             |  **1 Thread**  |  **10 Threads** |  **20 Threads**  |
+|:------------------------------------------------:|:--------------:|:---------------:|:----------------:|
+|                  **Radix Tree**                  | (2ms, 452/sec) | (9ms, 1064/sec) | (16ms, 1177/sec) |
+|                   **Hash Map**                   | (1ms, 470/sec) | (8ms, 1152/sec) | (15ms, 1295/sec) |
+|              **Concurrent Hash Map**             | (1ms, 578/sec) | (7ms, 1317/sec) | (13ms, 1418/sec) |
+| **Hash Map with Heap Optimization during query** | (1ms, 640/sec) | (6ms, 1403/sec) | (10ms, 1837/sec) |
+|              **Brute Force Search**              | (167ms, 6/sec) |        NA       |        NA        |
 
 License
 ----
